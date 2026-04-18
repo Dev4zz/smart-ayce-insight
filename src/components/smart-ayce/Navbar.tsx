@@ -1,4 +1,5 @@
 import { Brain } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const links = [
@@ -29,8 +30,8 @@ export const Navbar = () => (
             </li>
           ))}
         </ul>
-        <Button variant="default" className="bg-gradient-warm text-primary-foreground hover:opacity-90 shadow-glow">
-          Lihat Demo
+        <Button asChild className="bg-gradient-warm text-primary-foreground hover:opacity-90 shadow-glow">
+          <Link to="/analyze">Coba Analyzer</Link>
         </Button>
       </nav>
     </div>

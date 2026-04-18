@@ -1,4 +1,5 @@
 import { ArrowRight, Sparkles, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-smart-ayce.jpg";
 
@@ -26,12 +27,14 @@ export const Hero = () => (
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button size="lg" className="bg-gradient-warm text-primary-foreground hover:opacity-90 shadow-glow group">
-              Jelajahi Sistem
-              <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <Button asChild size="lg" className="bg-gradient-warm text-primary-foreground hover:opacity-90 shadow-glow group">
+              <Link to="/analyze">
+                Coba Analyzer Sekarang
+                <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
-            <Button size="lg" variant="outline" className="glass border-border">
-              Baca Metodologi
+            <Button asChild size="lg" variant="outline" className="glass border-border">
+              <a href="#methodology">Baca Metodologi</a>
             </Button>
           </div>
 

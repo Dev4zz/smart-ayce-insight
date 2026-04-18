@@ -1,4 +1,5 @@
 import { ArrowRight, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 export const CTA = () => (
@@ -15,9 +16,11 @@ export const CTA = () => (
             Berkolaborasi dalam riset Smart-AYCE atau implementasikan sistem ini untuk restoran Anda.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button size="lg" className="bg-gradient-warm text-primary-foreground hover:opacity-90 shadow-glow group">
-              Mulai Demo Gratis
-              <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <Button asChild size="lg" className="bg-gradient-warm text-primary-foreground hover:opacity-90 shadow-glow group">
+              <Link to="/analyze">
+                Mulai Analisis Gratis
+                <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
             <Button size="lg" variant="outline" className="glass border-border">
               <Mail className="mr-2 h-4 w-4" /> Hubungi Tim Riset
