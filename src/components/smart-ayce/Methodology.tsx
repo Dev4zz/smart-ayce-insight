@@ -16,8 +16,8 @@ const steps = [
   {
     icon: Cpu,
     tag: "03 · Modeling",
-    title: "mDeBERTa-v3 Zero-Shot Classification",
-    desc: "Implementasi mDeBERTa-v3 dengan teknik Zero-Shot Classification untuk analisis sentimen dan pemetaan aspek layanan secara otomatis.",
+    title: "nlptown BERT Multilingual Sentiment",
+    desc: "Implementasi model nlptown/bert-base-multilingual-uncased-sentiment untuk analisis sentimen teks ulasan (rating 1-5) yang sangat efisien dan responsif tanpa kendala cold-start.",
   },
   {
     icon: BarChart3,
@@ -28,8 +28,8 @@ const steps = [
   {
     icon: Lightbulb,
     tag: "05 · AI-Driven Recommendation",
-    title: "Gemini 1.5 Flash Recommendation",
-    desc: "Implementasi Gemini 1.5 Flash untuk menghasilkan saran bisnis kontekstual dan profesional, yang diintegrasikan dengan data prioritas dari tahap evaluasi guna menciptakan strategi perbaikan yang spesifik.",
+    title: "Gemini 2.5 Flash Recommendation",
+    desc: "Implementasi Gemini 2.5 Flash untuk menghasilkan saran bisnis kontekstual dan profesional, yang diintegrasikan dengan data prioritas dari tahap evaluasi guna menciptakan strategi perbaikan yang spesifik.",
   },
 ];
 
