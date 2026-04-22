@@ -148,36 +148,23 @@ const Analyze = () => {
           </Button>
         </form>
 
-        {loading && !data && (
-          <div className="max-w-3xl mx-auto mt-8 glass rounded-2xl p-8 text-center">
-            <Loader2 className="h-10 w-10 mx-auto animate-spin text-primary mb-4" />
-            <p className="font-display text-lg">Sedang memproses...</p>
-            <p className="text-sm text-muted-foreground mt-2">Model ML sedang menganalisis sentimen, ekstraksi aspek, dan menyusun rekomendasi.</p>
-          </div>
-        )}
-
         {data && (
           <div className="max-w-6xl mx-auto mt-10 space-y-6 animate-fade-up">
             {/* Restaurant header */}
             <div className="glass rounded-2xl p-6 md:p-8 shadow-elegant">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <Badge className="bg-gradient-tech text-primary-foreground border-0 mb-3">{data.restaurant.type}</Badge>
-                  <h2 className="font-display text-2xl md:text-3xl font-bold">{data.restaurant.name}</h2>
-                  <p className="text-muted-foreground mt-1 flex items-center gap-1.5"><MapPin className="h-4 w-4" />{data.restaurant.location}</p>
-                </div>
-                <div className="flex gap-6">
-                  <div className="text-center">
-                    <div className="flex items-center gap-1.5 justify-center">
-                      <Star className="h-5 w-5 fill-primary text-primary" />
-                      <span className="font-display text-3xl font-bold">{data.restaurant.estimated_rating.toFixed(1)}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">Rating Google</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-display text-3xl font-bold text-gradient-warm">{data.restaurant.estimated_reviews.toLocaleString()}</div>
-                    <p className="text-xs text-muted-foreground mt-1">Total review</p>
-                  </div>
+                  <Badge className="bg-gradient-tech text-primary-foreground border-0 mb-3">Hasil Analisis</Badge>
+                  <h2 className="font-display text-2xl md:text-3xl font-bold">{displayName}</h2>
+                  <a
+                    href={displayUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground mt-1 flex items-center gap-1.5 text-xs hover:text-primary break-all"
+                  >
+                    <MapPin className="h-3.5 w-3.5 shrink-0" />
+                    <span className="truncate max-w-[60ch]">{displayUrl}</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -185,9 +172,9 @@ const Analyze = () => {
             {/* Sentiment overview */}
             <div className="grid md:grid-cols-3 gap-4">
               {[
-                { label: "Positif", value: data.sentiment.positive, color: "bg-gradient-warm" },
-                { label: "Netral", value: data.sentiment.neutral, color: "bg-muted" },
-                { label: "Negatif", value: data.sentiment.negative, color: "bg-destructive" },
+                { label: "Positif", value: data.overall_sentiment.positive, color: "bg-gradient-warm" },
+                { label: "Netral", value: data.overall_sentiment.neutral, color: "bg-muted" },
+                { label: "Negatif", value: data.overall_sentiment.negative, color: "bg-destructive" },
               ].map((s) => (
                 <div key={s.label} className="glass rounded-2xl p-6">
                   <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">{s.label}</p>
