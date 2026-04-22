@@ -1,11 +1,8 @@
-import { Gauge, Tags, MessagesSquare, Clock, ShieldCheck, LineChart } from "lucide-react";
+import { Gauge, Tags, LineChart } from "lucide-react";
 
 const features = [
   { icon: Gauge, title: "Dashboard Real-time", desc: "Pantau sentimen pelanggan harian dengan visualisasi interaktif." },
-  { icon: Tags, title: "Aspect-Based Analysis", desc: "Pisahkan opini per aspek: rasa, harga, pelayanan, kebersihan, antrian." },
-  { icon: MessagesSquare, title: "Auto-Reply Suggestion", desc: "Saran balasan profesional untuk setiap review negatif." },
-  { icon: Clock, title: "Trend Detection", desc: "Deteksi pergeseran preferensi pelanggan sebelum berdampak ke rating." },
-  { icon: ShieldCheck, title: "Fake Review Filter", desc: "Klasifikasi review otentik vs anomali dengan ML." },
+  { icon: Tags, title: "Aspect-Based Analysis", desc: "Pisahkan opini per aspek: Kualitas Makanan, Pelayanan, Kebersihan, Harga, Variasi Menu, Waktu Tunggu." },
   { icon: LineChart, title: "Rekomendasi Aksi", desc: "Action items prioritas berbasis dampak terhadap kepuasan." },
 ];
 
@@ -19,7 +16,7 @@ export const Features = () => (
         </h2>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid md:grid-cols-3 gap-5">
         {features.map((f) => (
           <div
             key={f.title}
