@@ -4,32 +4,32 @@ const steps = [
   {
     icon: Database,
     tag: "01 · Data Acquisition",
-    title: "Scraping Review Google Maps",
-    desc: "Mengumpulkan ulasan, rating, dan metadata waktu dari restoran AYCE target menggunakan Google Places API.",
+    title: "Apify Google Maps Scraper",
+    desc: "Integrasi dengan Apify Google Maps Scraper untuk ekstraksi ulasan secara real-time berbasis URL yang diinput pengguna.",
   },
   {
     icon: Filter,
     tag: "02 · Preprocessing",
-    title: "Cleaning & Tokenisasi",
-    desc: "Normalisasi teks Bahasa Indonesia, stopword removal, stemming Sastrawi, dan deteksi bahasa.",
+    title: "Normalisasi & Deteksi Bahasa",
+    desc: "Normalisasi teks, pembersihan noise, dan deteksi bahasa untuk memastikan data siap diolah oleh model Transformer.",
   },
   {
     icon: Cpu,
     tag: "03 · Modeling",
-    title: "Sentiment & Topic Modeling",
-    desc: "IndoBERT untuk klasifikasi sentimen + LDA / BERTopic untuk ekstraksi aspek layanan.",
+    title: "mDeBERTa-v3 Zero-Shot Classification",
+    desc: "Implementasi mDeBERTa-v3 dengan teknik Zero-Shot Classification untuk analisis sentimen dan pemetaan aspek layanan secara otomatis.",
   },
   {
     icon: BarChart3,
     tag: "04 · Evaluation",
-    title: "Validasi Akurasi",
-    desc: "Pengujian dengan F1-score, precision-recall, dan validasi pakar industri kuliner.",
+    title: "Akurasi & Prioritas Masalah",
+    desc: "Validasi hasil klasifikasi menggunakan matriks akurasi dan pemetaan prioritas masalah (High/Medium/Low) berdasarkan ambang batas keluhan.",
   },
   {
     icon: Lightbulb,
-    tag: "05 · Recommendation",
-    title: "Generasi Rekomendasi",
-    desc: "Rule-based + LLM untuk mengubah temuan menjadi action item peningkatan layanan.",
+    tag: "05 · AI-Driven Recommendation",
+    title: "Gemini 1.5 Flash Recommendation",
+    desc: "Implementasi Gemini 1.5 Flash untuk menghasilkan saran bisnis kontekstual dan profesional, yang diintegrasikan dengan data prioritas dari tahap evaluasi guna menciptakan strategi perbaikan yang spesifik.",
   },
 ];
 
