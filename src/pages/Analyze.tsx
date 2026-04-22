@@ -192,7 +192,7 @@ const Analyze = () => {
                 <TrendingUp className="h-5 w-5 text-primary" /> Sentimen per Aspek Layanan
               </h3>
               <div className="space-y-5">
-                {data.aspects.map((a) => (
+                {data.sentiment_score.map((a) => (
                   <div key={a.name}>
                     <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
                       <span className="font-medium capitalize">{a.name.replace(/_/g, " ")}</span>
@@ -203,7 +203,6 @@ const Analyze = () => {
                       <div className="bg-muted h-full" style={{ width: `${a.neutral}%` }} />
                       <div className="bg-destructive h-full" style={{ width: `${a.negative}%` }} />
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1.5 italic">{a.summary}</p>
                   </div>
                 ))}
               </div>
@@ -214,7 +213,7 @@ const Analyze = () => {
               <div className="glass rounded-2xl p-6">
                 <h3 className="font-display text-lg font-semibold mb-4 text-primary">Kata Kunci Positif</h3>
                 <div className="flex flex-wrap gap-2">
-                  {data.keywords.positive.map((k) => (
+                  {data.kata_kunci.positif.map((k) => (
                     <Badge key={k} className="bg-primary/15 text-primary border border-primary/30 hover:bg-primary/20">{k}</Badge>
                   ))}
                 </div>
@@ -222,7 +221,7 @@ const Analyze = () => {
               <div className="glass rounded-2xl p-6">
                 <h3 className="font-display text-lg font-semibold mb-4 text-destructive">Kata Kunci Negatif</h3>
                 <div className="flex flex-wrap gap-2">
-                  {data.keywords.negative.map((k) => (
+                  {data.kata_kunci.negatif.map((k) => (
                     <Badge key={k} className="bg-destructive/15 text-destructive border border-destructive/30 hover:bg-destructive/20">{k}</Badge>
                   ))}
                 </div>
@@ -235,19 +234,22 @@ const Analyze = () => {
                 <MessageSquare className="h-5 w-5 text-primary" /> Contoh Review
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
-                {data.sample_reviews.map((r, i) => (
-                  <div key={i} className={`rounded-xl p-4 border ${r.sentiment === "positive" ? "border-primary/30 bg-primary/5" : r.sentiment === "negative" ? "border-destructive/30 bg-destructive/5" : "border-border bg-secondary/30"}`}>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">{r.author}</span>
-                      <div className="flex items-center gap-1">
-                        {Array.from({ length: 5 }).map((_, idx) => (
-                          <Star key={idx} className={`h-3 w-3 ${idx < r.rating ? "fill-primary text-primary" : "text-muted"}`} />
-                        ))}
+                {data.contoh_review.map((r, i) => {
+                  const sentiment = reviewSentiment(r.rating);
+                  return (
+                    <div key={i} className={`rounded-xl p-4 border ${sentiment === "positive" ? "border-primary/30 bg-primary/5" : sentiment === "negative" ? "border-destructive/30 bg-destructive/5" : "border-border bg-secondary/30"}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium">{r.nama}</span>
+                        <div className="flex items-center gap-1">
+                          {Array.from({ length: 5 }).map((_, idx) => (
+                            <Star key={idx} className={`h-3 w-3 ${idx < r.rating ? "fill-primary text-primary" : "text-muted"}`} />
+                          ))}
+                        </div>
                       </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">"{r.teks}"</p>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">"{r.text}"</p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -257,7 +259,7 @@ const Analyze = () => {
                 <Lightbulb className="h-5 w-5 text-primary" /> Rekomendasi Peningkatan Layanan
               </h3>
               <div className="space-y-4">
-                {data.recommendations.map((r, i) => (
+                {data.rekomendasi_list.map((r, i) => (
                   <div key={i} className="rounded-xl p-5 bg-secondary/40 border border-border hover:border-primary/40 transition-colors">
                     <div className="flex items-start gap-4">
                       <div className="h-10 w-10 rounded-lg bg-gradient-warm grid place-items-center font-display font-bold text-primary-foreground shrink-0">
@@ -265,11 +267,10 @@ const Analyze = () => {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-2">
-                          <h4 className="font-display font-semibold">{r.title}</h4>
-                          <Badge className={`border ${priorityStyles[r.priority]} capitalize`}>{r.priority} priority</Badge>
+                          <h4 className="font-display font-semibold">{r.judul}</h4>
+                          <Badge className={`border ${priorityStyles(r.prioritas)} capitalize`}>{r.prioritas} priority</Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{r.description}</p>
-                        <p className="text-xs text-primary mt-2 flex items-center gap-1.5"><TrendingUp className="h-3 w-3" /> {r.impact}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{r.deskripsi}</p>
                       </div>
                     </div>
                   </div>
@@ -281,6 +282,19 @@ const Analyze = () => {
               <p className="text-xs text-muted-foreground flex items-center justify-center gap-1.5">
                 <AlertCircle className="h-3 w-3" /> Hasil analisis dihasilkan oleh model ML berdasarkan pola review publik dan dapat berbeda dari kondisi aktual.
               </p>
+            </div>
+          </div>
+        )}
+
+        {loading && (
+          <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur grid place-items-center px-4">
+            <div className="glass rounded-2xl p-8 md:p-10 max-w-md w-full text-center shadow-elegant">
+              <Loader2 className="h-12 w-12 mx-auto animate-spin text-primary mb-5" />
+              <p className="font-display text-lg mb-2">Menganalisis review...</p>
+              <p className="text-sm text-muted-foreground leading-relaxed transition-opacity duration-300">
+                {progressMsg}
+              </p>
+              <p className="text-xs text-muted-foreground/70 mt-4 font-mono">Proses dapat memakan waktu hingga 2 menit</p>
             </div>
           </div>
         )}
