@@ -66,29 +66,51 @@ const Analyze = () => {
       toast({ title: "URL tidak valid", description: "Mohon masukkan link Google Maps yang benar.", variant: "destructive" });
       return;
     }
+
     setLoading(true);
     setData(null);
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 180000);
+    const timeoutId = setTimeout(() => controller.abort(), 180000); // 3 menit timeout
+
     try {
+      console.log("Memulai request ke backend...");
       const response = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: trimmed }),
         signal: controller.signal,
       });
-      if (!response.ok) throw new Error("HTTP error");
+
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
       const res = await response.json();
-      if (res?.status !== "success" || !res?.analysis) {
-        throw new Error(res?.message || "API error");
+      console.log("Response Backend Diterima:", res);
+
+      if (res?.status === "success" && res?.analysis) {
+        const name = hint.trim() || "Restoran Dianalisis";
+        setDisplayName(name);
+        setDisplayUrl(trimmed);
+        setData(res.analysis as Analysis);
+        toast({ title: "Analisis selesai", description: `Berhasil menganalisis ${name}` });
+      } else {
+        // Tampilkan pesan spesifik dari backend jika ada (misal: "Link salah")
+        throw new Error(res?.message || "Format data API tidak valid.");
       }
-      const name = hint.trim() || "Restoran Dianalisis";
-      setDisplayName(name);
-      setDisplayUrl(trimmed);
-      setData(res.analysis as Analysis);
-      toast({ title: "Analisis selesai", description: `Berhasil menganalisis ${name}` });
-    } catch (err) {
-      toast({ title: "Gagal menganalisis", description: ERROR_MESSAGE, variant: "destructive" });
+    } catch (err: any) {
+      console.error("Analysis Error:", err);
+      let finalMessage = ERROR_MESSAGE;
+      
+      if (err.name === 'AbortError') {
+        finalMessage = "Proses terlalu lama (Timeout). Server sedang sibuk, coba lagi nanti.";
+      } else if (err.message) {
+        finalMessage = err.message;
+      }
+
+      toast({ 
+        title: "Gagal menganalisis", 
+        description: finalMessage, 
+        variant: "destructive" 
+      });
     } finally {
       clearTimeout(timeoutId);
       setLoading(false);
@@ -124,7 +146,7 @@ const Analyze = () => {
             <Input
               type="url"
               required
-              placeholder="https://maps.app.goo.gl/1nEqRC3zkvtWT3vN8"
+              placeholder="https://maps.app.goo.gl/..."
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               className="bg-secondary/50 border-border h-12"
@@ -144,13 +166,16 @@ const Analyze = () => {
             />
           </div>
           <Button type="submit" disabled={loading} className="w-full h-12 bg-gradient-warm text-primary-foreground hover:opacity-90 shadow-glow">
-            {loading ? (<><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Menganalisis review...</>) : (<><Sparkles className="mr-2 h-4 w-4" /> Mulai Analisis</>)}
+            {loading ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Menganalisis review...</>
+            ) : (
+              <><Sparkles className="mr-2 h-4 w-4" /> Mulai Analisis</>
+            )}
           </Button>
         </form>
 
         {data && (
           <div className="max-w-6xl mx-auto mt-10 space-y-6 animate-fade-up">
-            {/* Restaurant header */}
             <div className="glass rounded-2xl p-6 md:p-8 shadow-elegant">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
@@ -169,7 +194,6 @@ const Analyze = () => {
               </div>
             </div>
 
-            {/* Sentiment overview */}
             <div className="grid md:grid-cols-3 gap-4">
               {[
                 { label: "Positif", value: data.overall_sentiment.positive, color: "bg-gradient-warm" },
@@ -186,7 +210,6 @@ const Analyze = () => {
               ))}
             </div>
 
-            {/* Aspects */}
             <div className="glass rounded-2xl p-6 md:p-8">
               <h3 className="font-display text-xl font-semibold flex items-center gap-2 mb-6">
                 <TrendingUp className="h-5 w-5 text-primary" /> Sentimen per Aspek Layanan
@@ -208,7 +231,6 @@ const Analyze = () => {
               </div>
             </div>
 
-            {/* Keywords */}
             <div className="grid md:grid-cols-2 gap-4">
               <div className="glass rounded-2xl p-6">
                 <h3 className="font-display text-lg font-semibold mb-4 text-primary">Kata Kunci Positif</h3>
@@ -228,7 +250,6 @@ const Analyze = () => {
               </div>
             </div>
 
-            {/* Sample reviews */}
             <div className="glass rounded-2xl p-6 md:p-8">
               <h3 className="font-display text-xl font-semibold flex items-center gap-2 mb-6">
                 <MessageSquare className="h-5 w-5 text-primary" /> Contoh Review
@@ -253,7 +274,6 @@ const Analyze = () => {
               </div>
             </div>
 
-            {/* Recommendations */}
             <div className="glass rounded-2xl p-6 md:p-8 shadow-elegant">
               <h3 className="font-display text-xl font-semibold flex items-center gap-2 mb-6">
                 <Lightbulb className="h-5 w-5 text-primary" /> Rekomendasi Peningkatan Layanan
@@ -280,7 +300,7 @@ const Analyze = () => {
 
             <div className="text-center pt-4">
               <p className="text-xs text-muted-foreground flex items-center justify-center gap-1.5">
-                <AlertCircle className="h-3 w-3" /> Hasil analisis dihasilkan oleh model ML berdasarkan pola review publik dan dapat berbeda dari kondisi aktual.
+                <AlertCircle className="h-3 w-3" /> Hasil analisis dihasilkan oleh model ML berdasarkan ulasan publik dan dapat berbeda dari kondisi aktual.
               </p>
             </div>
           </div>
