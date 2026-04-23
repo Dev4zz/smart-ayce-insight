@@ -36,7 +36,7 @@ const reviewSentiment = (rating: number): "positive" | "negative" | "neutral" =>
 
 const PROGRESS_STEPS = [
   { at: 0, msg: "Sedang mengekstraksi ulasan Google Maps melalui Apify..." },
-  { at: 20000, msg: "Sedang menganalisis sentimen aspek dengan mDeBERTa-v3..." },
+  { at: 20000, msg: "Sedang menganalisis sentimen aspek dengan model nlptown/bert..." },
   { at: 45000, msg: "Sedang menyusun rekomendasi bisnis dengan Gemini AI..." },
 ];
 
