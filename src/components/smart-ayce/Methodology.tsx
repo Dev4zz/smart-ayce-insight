@@ -28,8 +28,8 @@ const steps = [
   {
     icon: Lightbulb,
     tag: "05 · AI-Driven Recommendation",
-    title: "Gemini 2.5 Flash Recommendation",
-    desc: "Implementasi Gemini 2.5 Flash untuk menghasilkan saran bisnis kontekstual dan profesional, yang diintegrasikan dengan data prioritas dari tahap evaluasi guna menciptakan strategi perbaikan yang spesifik.",
+    title: "llama-3.1 Recommendation",
+    desc: "Implementasi llama-3.1 untuk menghasilkan saran bisnis kontekstual dan profesional, yang diintegrasikan dengan data prioritas dari tahap evaluasi guna menciptakan strategi perbaikan yang spesifik.",
   },
 ];
 
