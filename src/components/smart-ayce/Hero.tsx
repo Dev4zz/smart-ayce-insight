@@ -38,18 +38,6 @@ export const Hero = () => (
             </Button>
           </div>
 
-          <div className="mt-10 grid grid-cols-3 gap-6 max-w-md">
-            {[
-              { v: "12K+", l: "Review dianalisis" },
-              { v: "92%", l: "Akurasi sentimen" },
-              { v: "8", l: "Aspek layanan" },
-            ].map((s) => (
-              <div key={s.l}>
-                <div className="font-display text-2xl md:text-3xl font-bold text-gradient-warm">{s.v}</div>
-                <div className="text-xs text-muted-foreground mt-1">{s.l}</div>
-              </div>
-            ))}
-          </div>
         </div>
 
         <div className="relative animate-fade-up [animation-delay:200ms]">
