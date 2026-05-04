@@ -38,6 +38,8 @@ export const Hero = () => (
             </Button>
           </div>
 
+        </div>
+
         <div className="relative animate-fade-up [animation-delay:200ms]">
           <div className="absolute -inset-6 bg-gradient-hero opacity-30 blur-3xl rounded-full animate-pulse-glow" />
           <div className="relative glass rounded-3xl overflow-hidden shadow-elegant">
