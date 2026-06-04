@@ -35,9 +35,9 @@ const reviewSentiment = (rating: number): "positive" | "negative" | "neutral" =>
 };
 
 const PROGRESS_STEPS = [
-  { at: 0, msg: "Sedang mengekstraksi ulasan Google Maps melalui Apify..." },
-  { at: 20000, msg: "Sedang menganalisis sentimen aspek dengan mDeBERTa-v3..." },
-  { at: 45000, msg: "Sedang menyusun rekomendasi bisnis dengan Gemini AI..." },
+  { at: 0, msg: "Sedang mengekstraksi data ulasan pelanggan..." },
+  { at: 20000, msg: "Sedang menganalisis sentimen berdasarkan aspek layanan..." },
+  { at: 45000, msg: "Sedang merumuskan rekomendasi operasional manajerial..." },
 ];
 
 const Analyze = () => {
