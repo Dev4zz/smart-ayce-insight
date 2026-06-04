@@ -9,27 +9,27 @@ const steps = [
   },
   {
     icon: Filter,
-    tag: "02 · Preprocessing",
-    title: "Normalisasi & Deteksi Bahasa",
-    desc: "Normalisasi teks, pembersihan noise, dan deteksi bahasa untuk memastikan data siap diolah oleh model Transformer.",
+    tag: "02 · Preprocessing & Vectorization",
+    title: "Normalisasi Teks & Ekstraksi TF-IDF",
+    desc: "Pembersihan noise data tidak terstruktur dan transformasi teks menjadi matriks bobot numerik menggunakan algoritma Term Frequency-Inverse Document Frequency (TF-IDF).",
   },
   {
     icon: Cpu,
     tag: "03 · Modeling",
-    title: "nlptown BERT Multilingual Sentiment",
-    desc: "Implementasi model nlptown/bert-base-multilingual-uncased-sentiment untuk analisis sentimen teks ulasan (rating 1-5) yang sangat efisien dan responsif tanpa kendala cold-start.",
+    title: "Fast-SVM Sentiment Classification",
+    desc: "Implementasi model Support Vector Machine (LinearSVC) lokal berkinerja tinggi untuk klasifikasi sentimen ulasan yang efisien, ringan, dan responsif tanpa kendala cold-start.",
   },
   {
     icon: BarChart3,
-    tag: "04 · Evaluation",
-    title: "Akurasi & Prioritas Masalah",
-    desc: "Validasi hasil klasifikasi menggunakan matriks akurasi dan pemetaan prioritas masalah (High/Medium/Low) berdasarkan ambang batas keluhan.",
+    tag: "04 · Aspect-Based Evaluation",
+    title: "Kategorisasi Aspek Operasional",
+    desc: "Pemetaan otomatis hasil sentimen ke dalam dimensi layanan spesifik (Kualitas Makanan, Pelayanan, Kebersihan) untuk mengidentifikasi metrik prioritas masalah restoran.",
   },
   {
     icon: Lightbulb,
     tag: "05 · AI-Driven Recommendation",
-    title: "Gemini 2.5 Flash Recommendation",
-    desc: "Implementasi Gemini 2.5 Flash untuk menghasilkan saran bisnis kontekstual dan profesional, yang diintegrasikan dengan data prioritas dari tahap evaluasi guna menciptakan strategi perbaikan yang spesifik.",
+    title: "Llama 3.1 Managerial Insights",
+    desc: "Implementasi Large Language Model (Llama 3.1) via Groq API untuk menyintesis data keluhan menjadi rekomendasi tindakan manajerial yang terstruktur dan kontekstual.",
   },
 ];
 
